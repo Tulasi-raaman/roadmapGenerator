@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillForge AI | Personalized Learning Roadmap Generator</title>
+  <meta name="description" content="Award-winning personalized learning roadmap generator. Synthesizes a structured, time-bound learning syllabus tailored to your target career role, starting skills, and schedule.">
+  
+  <!-- World-Class Typography: Plus Jakarta Sans, Space Grotesk, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Ambient Atmospheric Lighting Effects (Adaptive to Light & Dark) -->
+  <div class="ambient-mesh">
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+    <div class="ambient-orb ambient-orb-3"></div>
+    <div class="ambient-grid-pattern"></div>
+  </div>
+
+  <!-- Canvas for Confetti celebration -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Luxury Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="nav-brand" id="brand-home-btn">
+        <div class="brand-icon">
+          <span class="brand-sparkle">✦</span>
+        </div>
+        <div class="brand-text-wrap">
+          <span class="brand-name">SkillForge</span>
+          <span class="brand-ai-badge">AI</span>
+        </div>
+        <span class="brand-version-pill">v2.5 PRO</span>
+      </a>
+      
+      <div class="nav-actions">
+        <!-- Theme Switcher (Light / Dark) -->
+        <button class="theme-toggle-btn" id="theme-toggle-btn" title="Toggle Light / Dark Mode" aria-label="Toggle theme">
+          <span class="theme-icon" id="theme-icon">🌙</span>
+        </button>
+
+        <button class="btn btn-glass btn-sm" id="nav-new-btn">
+          <span class="btn-icon-subtle">+</span> New Plan
+        </button>
+        <button class="btn btn-secondary btn-sm" id="nav-saved-btn">
+          <span class="btn-icon-subtle">📂</span> Saved <span class="badge-count" id="saved-count">0</span>
+        </button>
+        <button class="btn btn-outline btn-sm" id="nav-export-btn" style="display: none;">
+          <span class="btn-icon-subtle">🚀</span> Export / Share
+        </button>
+
+        <!-- Authentication Buttons / User Profile Menu -->
+        <div class="auth-nav-area">
+          <button class="btn btn-primary btn-sm" id="nav-login-btn">
+            <span>👤</span> Sign In
+          </button>
+
+          <!-- Logged In User Dropdown Capsule -->
+          <div class="user-menu-wrap" id="nav-user-wrap" style="display: none;">
+            <button class="user-profile-btn" id="nav-user-btn" aria-haspopup="true" aria-expanded="false">
+              <span class="user-avatar-badge" id="nav-user-avatar">👨‍💻</span>
+              <span class="user-name-text" id="nav-user-name">Alex Chen</span>
+              <span class="user-chevron">▾</span>
+            </button>
+            <div class="user-dropdown-menu" id="user-dropdown-menu">
+              <div class="user-dropdown-header">
+                <div class="dropdown-avatar-large" id="dropdown-user-avatar">👨‍💻</div>
+                <div class="dropdown-info">
+                  <span class="dropdown-user-name" id="dropdown-user-full-name">Alex Chen</span>
+                  <span class="dropdown-user-role" id="dropdown-user-role">Data Analyst Track</span>
+                  <span class="dropdown-user-email" id="dropdown-user-email">alex.chen@example.com</span>
+                </div>
+              </div>
+              <div class="user-dropdown-divider"></div>
+              <button class="dropdown-item" id="dropdown-saved-btn">
+                <span>📂</span> My Saved Roadmaps
+              </button>
+              <button class="dropdown-item" id="dropdown-profile-btn">
+                <span>⚡</span> Curriculum Progress
+              </button>
+              <div class="user-dropdown-divider"></div>
+              <button class="dropdown-item dropdown-item-danger" id="dropdown-logout-btn">
+                <span>🚪</span> Sign Out
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- User Personalized Welcome Ribbon (Shows when logged in) -->
+    <div class="user-welcome-ribbon" id="user-welcome-ribbon" style="display: none;">
+      <div class="welcome-ribbon-content">
+        <span class="welcome-sparkle">✨</span>
+        <span class="welcome-text">
+          Welcome back, <strong id="ribbon-user-name">Alex</strong>! You are on the <strong id="ribbon-user-track">Data Analyst Track</strong>. Ready to conquer your next milestone?
+        </span>
+      </div>
+      <button class="btn btn-glass btn-sm" id="btn-ribbon-quick-resume">
+        Resume Roadmap →
+      </button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero-section">
+      <div class="hero-badge-wrap">
+        <div class="hero-pill">
+          <span class="hero-pill-ping">
+            <span class="ping-circle"></span>
+            <span class="ping-core"></span>
+          </span>
+          <span class="hero-pill-text">Autonomous Career Path Synthesizer & Curriculum Architect</span>
+        </div>
+      </div>
+      
+      <h1 class="hero-headline">
+        Architect Your Tech Career <br>
+        <span class="hero-gradient-text">With Mathematical Precision.</span>
+      </h1>
+      
+      <p class="hero-subtitle">
+        Eliminate guesswork, scattered tutorials, and directionless learning. Diagnose your current technical baseline and synthesize an adaptive, time-bound roadmap with industry capstones and vetted masterclasses.
+      </p>
+
+      <div class="hero-stats-panel">
+        <div class="hero-stat-card">
+          <div class="stat-number-wrap">
+            <span class="stat-number">6+</span>
+            <span class="stat-plus">⚡</span>
+          </div>
+          <span class="stat-label">Specialist Engineering Tracks</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat-card">
+          <div class="stat-number-wrap">
+            <span class="stat-number">100%</span>
+            <span class="stat-sparkle">✦</span>
+          </div>
+          <span class="stat-label">Curated Free & Pro Blueprints</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat-card">
+          <div class="stat-number-wrap">
+            <span class="stat-number">Real-Time</span>
+            <span class="stat-dot"></span>
+          </div>
+          <span class="stat-label">Dynamic Skill Gap Analysis</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wizard Card: 3-Step Interactive Configuration -->
+    <section class="wizard-card" id="wizard-card">
+      <div class="wizard-header">
+        <div class="wizard-steps-indicator">
+          <div class="step-indicator-item active" id="step-indicator-1">
+            <span class="step-bubble">01</span>
+            <span class="step-label-text">Target Role</span>
+            <span class="step-glow-line"></span>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step-indicator-item" id="step-indicator-2">
+            <span class="step-bubble">02</span>
+            <span class="step-label-text">Current Baseline</span>
+            <span class="step-glow-line"></span>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step-indicator-item" id="step-indicator-3">
+            <span class="step-bubble">03</span>
+            <span class="step-label-text">Pace & Style</span>
+            <span class="step-glow-line"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 1: Target Role Selection -->
+      <div class="step-pane active" id="step-pane-1">
+        <div class="step-heading-group">
+          <span class="step-tagline">STEP 1 OF 3</span>
+          <h2 class="step-title">Select Your Desired Career Target</h2>
+          <p class="step-desc">Choose a pre-benchmarked industry track or architect a custom niche specialization.</p>
+        </div>
+
+        <div class="role-grid" id="role-selector-grid">
+          <!-- Dynamically populated from ROLE_DATABASE -->
+        </div>
+
+        <div class="custom-role-container">
+          <div class="custom-role-header">
+            <span class="custom-role-badge">✦ Custom Engine</span>
+            <label for="custom-role-input" class="custom-role-label">
+              Architect a Custom Role or Niche Specialization
+            </label>
+          </div>
+          <div class="custom-role-input-group">
+            <div class="input-icon-wrap">
+              <span class="input-sparkle-icon">✨</span>
+              <input 
+                type="text" 
+                id="custom-role-input" 
+                class="input-text" 
+                placeholder="e.g. Flutter Mobile Engineer, Blockchain Architect, Game Developer with Unity..."
+              >
+            </div>
+            <button class="btn btn-secondary" id="btn-use-custom-role">
+              <span>Synthesize Custom Role</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Skill Diagnostic Matrix -->
+      <div class="step-pane" id="step-pane-2">
+        <div class="step-header-with-actions">
+          <div class="step-heading-group">
+            <span class="step-tagline">STEP 2 OF 3</span>
+            <h2 class="step-title">Diagnose Your Technical Baseline</h2>
+            <p class="step-desc">
+              Rate your honest familiarity with each competency. We will skip what you know and emphasize your gaps.
+            </p>
+          </div>
+          <div class="quick-action-btns">
+            <button class="btn btn-glass btn-sm" id="btn-reset-skills">Reset All</button>
+            <button class="btn btn-secondary btn-sm" id="btn-mark-beginner">Mark All Novice</button>
+          </div>
+        </div>
+
+        <div class="skills-matrix custom-scroll" id="skills-matrix-container">
+          <!-- Dynamically rendered based on selected role -->
+        </div>
+      </div>
+
+      <!-- Step 3: Pacing & Learning Preferences -->
+      <div class="step-pane" id="step-pane-3">
+        <div class="step-heading-group">
+          <span class="step-tagline">STEP 3 OF 3</span>
+          <h2 class="step-title">Configure Your Schedule & Learning Cadence</h2>
+          <p class="step-desc">We mathematically allocate milestones based on your actual weekly availability.</p>
+        </div>
+
+        <div class="pacing-grid">
+          <!-- Weekly Hours Commitment -->
+          <div class="control-box">
+            <div class="control-box-header">
+              <span class="control-icon">⏱️</span>
+              <div class="control-title-wrap">
+                <span class="control-title">Dedicated Study Commitment</span>
+                <span class="control-desc">Hours available per week</span>
+              </div>
+              <span class="control-value-badge" id="weekly-hours-display">12 hrs / week</span>
+            </div>
+            <div class="slider-container">
+              <input 
+                type="range" 
+                id="weekly-hours-slider" 
+                class="range-slider" 
+                min="3" 
+                max="40" 
+                step="1" 
+                value="12"
+              >
+              <div class="slider-ticks">
+                <span>Casual (3h)</span>
+                <span>Part-Time (15h)</span>
+                <span>Sprint (40h)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Target Timeline in Months -->
+          <div class="control-box">
+            <div class="control-box-header">
+              <span class="control-icon">🎯</span>
+              <div class="control-title-wrap">
+                <span class="control-title">Target Timeframe Horizon</span>
+                <span class="control-desc">Desired completion deadline</span>
+              </div>
+              <span class="control-value-badge" id="timeline-months-display">4 Months</span>
+            </div>
+            <div class="slider-container">
+              <input 
+                type="range" 
+                id="timeline-months-slider" 
+                class="range-slider" 
+                min="1" 
+                max="12" 
+                step="1" 
+                value="4"
+              >
+              <div class="slider-ticks">
+                <span>Fast Sprint (1mo)</span>
+                <span>Standard (4mo)</span>
+                <span>Deep Mastery (12mo)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Learning Format Preference -->
+          <div class="control-box">
+            <div class="control-box-header">
+              <span class="control-icon">🧠</span>
+              <div class="control-title-wrap">
+                <span class="control-title">Preferred Learning Modality</span>
+                <span class="control-desc">How you absorb knowledge fastest</span>
+              </div>
+            </div>
+            <div class="options-chip-group" id="learning-style-group">
+              <button class="option-chip selected" data-style="balanced">
+                <span class="chip-icon">⚖️</span>
+                <span>Balanced Multi-Modal</span>
+              </button>
+              <button class="option-chip" data-style="projects">
+                <span class="chip-icon">🛠️</span>
+                <span>Project & Build First</span>
+              </button>
+              <button class="option-chip" data-style="videos">
+                <span class="chip-icon">🎬</span>
+                <span>Video Masterclasses</span>
+              </button>
+              <button class="option-chip" data-style="reading">
+                <span class="chip-icon">📖</span>
+                <span>Docs & Deep Reading</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Resource Budget -->
+          <div class="control-box">
+            <div class="control-box-header">
+              <span class="control-icon">💳</span>
+              <div class="control-title-wrap">
+                <span class="control-title">Resource Budget Filter</span>
+                <span class="control-desc">Content paywall restrictions</span>
+              </div>
+            </div>
+            <div class="options-chip-group" id="budget-group">
+              <button class="option-chip selected" data-budget="all">
+                <span class="chip-icon">🌐</span>
+                <span>All Verified Top Resources</span>
+              </button>
+              <button class="option-chip" data-budget="free">
+                <span class="chip-icon">🎁</span>
+                <span>100% Free / Open Source Only</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wizard Navigation Buttons -->
+      <div class="wizard-nav">
+        <button class="btn btn-glass" id="wizard-prev-btn" style="visibility: hidden;">
+          <span class="btn-arrow-left">←</span> Back
+        </button>
+        <button class="btn btn-primary" id="wizard-next-btn">
+          <span>Next Step</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Roadmap Results Hub -->
+    <section id="roadmap-results">
+      <!-- Roadmap Hero Summary Banner -->
+      <div class="roadmap-hero-banner">
+        <div class="banner-glass-specular"></div>
+        <div class="banner-top-row">
+          <div class="banner-title-area">
+            <div class="banner-role-icon-box">
+              <span class="banner-role-icon" id="banner-role-icon">💻</span>
+              <span class="role-icon-glow"></span>
+            </div>
+            <div class="banner-meta-group">
+              <div class="banner-title-with-pill">
+                <h2 id="banner-role-title">Frontend Web Developer</h2>
+                <span class="market-demand-badge" id="banner-market-demand">High Demand</span>
+              </div>
+              <p class="banner-tagline" id="banner-role-tagline">
+                Craft modern web applications with clean architecture and reactive UI.
+              </p>
+            </div>
+          </div>
+
+          <div class="banner-actions">
+            <button class="btn btn-secondary btn-sm" id="btn-save-plan">
+              <span>💾</span> Save Roadmap
+            </button>
+            <button class="btn btn-glass btn-sm" id="btn-print-plan">
+              <span>🖨️</span> Print / PDF
+            </button>
+            <button class="btn btn-primary btn-sm" id="btn-open-export">
+              <span>📤</span> Export & Share
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI Metrics Grid -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon-wrap">🎯</div>
+            <span class="kpi-label">Skill Readiness Index</span>
+            <span class="kpi-value" id="kpi-readiness">35%</span>
+            <span class="kpi-sub" id="kpi-readiness-sub">Diagnosed from baseline</span>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon-wrap">⏳</div>
+            <span class="kpi-label">Curriculum Duration</span>
+            <span class="kpi-value" id="kpi-duration">16 Weeks</span>
+            <span class="kpi-sub" id="kpi-hours-sub">~180 Est. Total Hours</span>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon-wrap">🏁</div>
+            <span class="kpi-label">Target Completion</span>
+            <span class="kpi-value" id="kpi-completion-date">Nov 28, 2026</span>
+            <span class="kpi-sub" id="kpi-pace-sub">At 12 hrs / week</span>
+          </div>
+          <div class="kpi-card highlight-kpi">
+            <div class="kpi-icon-wrap">💼</div>
+            <span class="kpi-label">Market Compensation</span>
+            <span class="kpi-value salary-val" id="kpi-salary">$80k - $125k</span>
+            <span class="kpi-sub">Entry to Mid-Level Band</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feasibility Advisory Banner -->
+      <div class="feasibility-callout optimal" id="feasibility-banner">
+        <div class="callout-icon-box">
+          <span class="callout-icon">💡</span>
+        </div>
+        <div class="callout-text">
+          <h4 id="feasibility-status-title">Optimal & Sustainable Pace</h4>
+          <p id="feasibility-status-desc">
+            Your committed weekly hours provide ample time to complete every project thoroughly without burnout.
+          </p>
+        </div>
+      </div>
+
+      <!-- Live Progress Card -->
+      <div class="progress-card">
+        <div class="progress-header">
+          <div class="progress-title">
+            <span class="flame-icon">🔥</span>
+            <span>Live Curriculum Progress</span>
+            <span id="streak-counter-badge" class="streak-badge">1 Day Active Streak</span>
+          </div>
+          <div class="progress-percentage-pill" id="progress-percentage-display">0% Completed</div>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-bar-fill" style="width: 0%;">
+            <span class="progress-glow-head"></span>
+          </div>
+        </div>
+        <div class="progress-meta">
+          <span id="progress-completed-tasks">0 of 25 Milestones & Concepts Checked</span>
+          <span class="progress-tip">✦ Click checklist items to track mastery</span>
+        </div>
+      </div>
+
+      <!-- Multi-View Navigation Tabs -->
+      <div class="view-nav">
+        <div class="view-tabs">
+          <button class="view-tab-btn active" data-view="timeline">
+            <span class="tab-icon">⚡</span> Timeline Pipeline
+          </button>
+          <button class="view-tab-btn" data-view="kanban">
+            <span class="tab-icon">📋</span> Kanban Board
+          </button>
+          <button class="view-tab-btn" data-view="calendar">
+            <span class="tab-icon">📅</span> Weekly Routine
+          </button>
+          <button class="view-tab-btn" data-view="gap-matrix">
+            <span class="tab-icon">🎯</span> Competency Gap Matrix
+          </button>
+        </div>
+
+        <div class="view-actions">
+          <button class="btn btn-glass btn-sm" id="btn-toggle-all-phases">
+            Collapse All Phases
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW 1: Timeline Pipeline View -->
+      <div class="view-container active" id="view-timeline">
+        <div class="timeline-pipeline" id="timeline-pipeline-list">
+          <!-- Dynamically populated phase nodes -->
+        </div>
+      </div>
+
+      <!-- VIEW 2: Kanban Board View -->
+      <div class="view-container" id="view-kanban">
+        <div class="kanban-board">
+          <div class="kanban-col" id="kanban-todo">
+            <div class="kanban-col-header">
+              <div class="kanban-col-title">
+                <span class="status-indicator-dot not-started"></span> Not Started
+              </div>
+              <span class="kanban-count" id="kanban-todo-count">0</span>
+            </div>
+            <div class="kanban-cards-list custom-scroll" id="kanban-todo-list"></div>
+          </div>
+
+          <div class="kanban-col" id="kanban-doing">
+            <div class="kanban-col-header">
+              <div class="kanban-col-title">
+                <span class="status-indicator-dot in-progress"></span> In Progress
+              </div>
+              <span class="kanban-count" id="kanban-doing-count">0</span>
+            </div>
+            <div class="kanban-cards-list custom-scroll" id="kanban-doing-list"></div>
+          </div>
+
+          <div class="kanban-col" id="kanban-done">
+            <div class="kanban-col-header">
+              <div class="kanban-col-title">
+                <span class="status-indicator-dot completed"></span> Mastered
+              </div>
+              <span class="kanban-count" id="kanban-done-count">0</span>
+            </div>
+            <div class="kanban-cards-list custom-scroll" id="kanban-done-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: Weekly Calendar / Routine Schedule -->
+      <div class="view-container" id="view-calendar">
+        <div class="calendar-view-wrap">
+          <div class="calendar-header">
+            <div>
+              <span class="calendar-tag">SPACED REPETITION ENGINE</span>
+              <h3 class="calendar-title">Recommended Weekly Study Distribution</h3>
+              <p class="calendar-desc">
+                Balanced weekly cadence allocating your chosen study hours for maximum neuroplasticity and retention.
+              </p>
+            </div>
+            <span class="brand-badge" id="calendar-weekly-target">12 Hours / Week</span>
+          </div>
+
+          <div class="calendar-week-grid" id="calendar-week-grid">
+            <!-- Dynamically populated days -->
+          </div>
+
+          <div class="calendar-science-callout">
+            <span class="science-icon">💡</span>
+            <div class="science-text">
+              <strong>Cognitive Science Insight:</strong> Spacing study sessions across 4–5 days yields <strong>3.2x higher concept recall</strong> than cramming all hours into a single marathon weekend session.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 4: Skill Gap Matrix View -->
+      <div class="view-container" id="view-gap-matrix">
+        <div class="gap-matrix-wrap">
+          <div class="gap-matrix-header">
+            <span class="gap-tag">DIAGNOSTIC BENCHMARK</span>
+            <h3 class="gap-title">Target Role Competency Gap Analysis</h3>
+            <p class="gap-desc">
+              Comparison between your diagnosed starting point and full production readiness for this target role.
+            </p>
+          </div>
+          <div class="gap-matrix-grid" id="gap-matrix-grid">
+            <!-- Dynamically populated from gap analysis -->
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Customizer / Tuning Assistant Panel -->
+      <div class="assistant-panel">
+        <div class="assistant-header">
+          <div class="assistant-avatar">
+            <span class="avatar-sparkle">✦</span>
+          </div>
+          <div>
+            <h4 class="assistant-title">AI Roadmap Customizer & Re-tuning Console</h4>
+            <p class="assistant-subtitle">
+              Need to alter your trajectory or adapt to changing deadlines? Select a prompt preset or enter custom constraints.
+            </p>
+          </div>
+        </div>
+
+        <div class="quick-prompts">
+          <button class="prompt-pill" data-tweak="fast-track">
+            <span>⚡</span> 30-Day Emergency Interview Sprint
+          </button>
+          <button class="prompt-pill" data-tweak="weekend">
+            <span>☕</span> Weekend Warrior: 6 hrs on Sat/Sun
+          </button>
+          <button class="prompt-pill" data-tweak="project-heavy">
+            <span>🛠️</span> 100% Practical: Build-First Capstones
+          </button>
+          <button class="prompt-pill" data-tweak="all-free">
+            <span>🎁</span> Strict 100% Free / Open Source
+          </button>
+        </div>
+
+        <div class="custom-role-input-group">
+          <div class="input-icon-wrap">
+            <span class="input-sparkle-icon">🤖</span>
+            <input 
+              type="text" 
+              id="ai-tweak-input" 
+              class="input-text" 
+              placeholder="e.g. 'I work full-time, stretch over 6 months', 'Emphasize Python and SQL over spreadsheets'..."
+            >
+          </div>
+          <button class="btn btn-secondary" id="btn-apply-ai-tweak">
+            <span>Apply AI Tweak</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       MODAL: Authentication / Sign In & Register System
+       ========================================================================= -->
+  <div class="modal-backdrop" id="auth-modal">
+    <div class="modal-dialog auth-modal-dialog">
+      <div class="modal-header auth-modal-header">
+        <div class="modal-title-group">
+          <span class="modal-pill-tag">AUTHENTICATION PORTAL</span>
+          <h3 class="modal-title" id="auth-modal-title">Sign In to SkillForge</h3>
+        </div>
+        <button class="btn btn-glass btn-icon" id="btn-close-auth" aria-label="Close auth modal">&times;</button>
+      </div>
+
+      <div class="modal-body auth-modal-body">
+        <!-- Auth Tabs: Sign In vs Sign Up -->
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="tab-sign-in" data-tab="signin">Sign In</button>
+          <button class="auth-tab-btn" id="tab-sign-up" data-tab="signup">Create Free Account</button>
+        </div>
+
+        <!-- One-Click Instant Demo Credentials Strip -->
+        <div class="demo-auth-box">
+          <div class="demo-box-label">
+            <span class="demo-bolt">⚡</span>
+            <span>One-Click Fast Demo Logins (No password needed):</span>
+          </div>
+          <div class="demo-buttons-strip">
+            <button type="button" class="btn-demo-quick" id="btn-demo-alex">
+              <span class="demo-avatar">👨‍💻</span>
+              <div class="demo-btn-text">
+                <strong>Alex Chen</strong>
+                <small>Data Analyst Track</small>
+              </div>
+            </button>
+            <button type="button" class="btn-demo-quick" id="btn-demo-sarah">
+              <span class="demo-avatar">👩‍💻</span>
+              <div class="demo-btn-text">
+                <strong>Sarah Connor</strong>
+                <small>Full-Stack Engineer</small>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="auth-divider">
+          <span>or continue with email</span>
+        </div>
+
+        <!-- Sign In Form Pane -->
+        <form id="form-sign-in" class="auth-form active">
+          <div class="form-group">
+            <label for="signin-email" class="form-label">Email Address</label>
+            <div class="input-icon-wrap">
+              <span class="input-sparkle-icon">✉️</span>
+              <input type="email" id="signin-email" class="input-text" placeholder="you@example.com" required value="alex.chen@example.com">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="signin-password" class="form-label">Password</label>
+              <a href="#" class="forgot-link" id="link-forgot-pass">Forgot?</a>
+            </div>
+            <div class="input-icon-wrap">
+              <span class="input-sparkle-icon">🔒</span>
+              <input type="password" id="signin-password" class="input-text" placeholder="••••••••" required value="demo123456">
+              <button type="button" class="btn-toggle-pass" id="btn-toggle-signin-pass" title="Toggle password visibility">👁️</button>
+            </div>
+          </div>
+
+          <div class="form-row-remember">
+            <label class="remember-check-wrap">
+              <input type="checkbox" id="signin-remember" checked>
+              <span>Keep me logged in for 30 days</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="btn-submit-signin">
+            <span>Sign In to Dashboard</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </form>
+
+        <!-- Sign Up Form Pane -->
+        <form id="form-sign-up" class="auth-form" style="display: none;">
+          <div class="form-group">
+            <label for="signup-name" class="form-label">Full Name</label>
+            <div class="input-icon-wrap">
+              <span class="input-sparkle-icon">👤</span>
+              <input type="text" id="signup-name" class="input-text" placeholder="e.g. Maya Lin" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="signup-email" class="form-label">Email Address</label>
+            <div class="input-icon-wrap">
+              <span class="input-sparkle-icon">✉️</span>
+              <input type="email" id="signup-email" class="input-text" placeholder="maya@example.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="signup-role" class="form-label">Target Career Track</label>
+            <div class="input-icon-wrap">
+              <span class="input-sparkle-icon">🎯</span>
+              <select id="signup-role" class="input-text input-select">
+                <option value="data-analyst">Data Analyst</option>
+                <option value="frontend-developer">Frontend Web Developer</option>
+                <option value="fullstack-developer">Full-Stack Web Developer</option>
+                <option value="ml-ai-engineer">Machine Learning & AI Engineer</option>
+                <option value="cloud-devops">Cloud & DevOps Engineer</option>
+                <option value="cybersecurity-analyst">Cybersecurity Analyst</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="signup-password" class="form-label">Create Password</label>
+            <div class="input-icon-wrap">
+              <span class="input-sparkle-icon">🔒</span>
+              <input type="password" id="signup-password" class="input-text" placeholder="At least 6 characters" minlength="6" required>
+              <button type="button" class="btn-toggle-pass" id="btn-toggle-signup-pass" title="Toggle password visibility">👁️</button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="btn-submit-signup">
+            <span>Create My Free Account</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </form>
+
+        <!-- Social Sign In Strip -->
+        <div class="social-login-strip">
+          <button type="button" class="btn-social" id="btn-social-google">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+            <span>Google</span>
+          </button>
+          <button type="button" class="btn-social" id="btn-social-github">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>GitHub</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer auth-modal-footer">
+        <span class="auth-security-notice">🔒 Encrypted session with local token storage</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Export & Share -->
+  <div class="modal-backdrop" id="export-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-pill-tag">EXPORT ENGINE</span>
+          <h3 class="modal-title">Export & Share Your Roadmap</h3>
+        </div>
+        <button class="btn btn-glass btn-icon" id="btn-close-export" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-intro">
+          Export your syllabus into Notion-ready Markdown, download as JSON, or copy summary to clipboard.
+        </p>
+
+        <div class="modal-button-strip">
+          <button class="btn btn-secondary btn-sm" id="btn-export-markdown">
+            <span>📄</span> Markdown (Notion / GitHub)
+          </button>
+          <button class="btn btn-secondary btn-sm" id="btn-export-json">
+            <span>💾</span> Download JSON
+          </button>
+          <button class="btn btn-primary btn-sm" id="btn-copy-clipboard">
+            <span>📋</span> Copy Text Summary
+          </button>
+        </div>
+
+        <div class="code-export-box custom-scroll" id="export-code-preview">
+          <!-- Generated markdown preview -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-glass" id="btn-done-export">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Saved Roadmaps Library -->
+  <div class="modal-backdrop" id="saved-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-pill-tag">SAVED PROFILES</span>
+          <h3 class="modal-title">Saved Roadmaps Library</h3>
+        </div>
+        <button class="btn btn-glass btn-icon" id="btn-close-saved" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="saved-roadmaps-list" class="saved-plans-container">
+          <!-- Dynamically populated saved plans -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-glass" id="btn-done-saved">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="roadmapData.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
